@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.2.5",
         "bugsnag/bugsnag-laravel": "^2.18",
-        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -31,7 +30,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.2.5"
+        }
     },
     "extra": {
         "laravel": {
