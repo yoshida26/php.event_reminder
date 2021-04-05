@@ -44,25 +44,21 @@ class User extends Authenticatable
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-
     }
 
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
-
     }
 
     public function getEmailVerifiedAtAttribute($value)
     {
         return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
-
     }
 
     public function setEmailVerifiedAtAttribute($value)
     {
         $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-
     }
 
     public function setPasswordAttribute($input)
@@ -70,19 +66,27 @@ class User extends Authenticatable
         if ($input) {
             $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
         }
-
     }
 
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPassword($token));
-
     }
 
     public function roles()
     {
         return $this->belongsToMany(Role::class);
-
     }
 
+    /**
+     * Route notification for Slack channel.
+     * 
+     * @param \Illuminate\Notifications\Notification $notification
+     * @return string
+     */
+
+    public function routeNotificationForSlack($notification)
+    {
+        return 'https://hooks.slack.com/services/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';
+    }
 }
