@@ -53,7 +53,6 @@ class SendRemindersCommandToSlack extends Command
 
         foreach ($events as $event) {
             if (
-                // now($event->timezone)->diffInMinutes($event->start_time, false) > 0 &&
                 now($event->timezone)->diffInMinutes($event->start_time, false) <= 60
             ) {
                 Notification::send($event->registrants, new EventReminderNotificationToSlack($event));

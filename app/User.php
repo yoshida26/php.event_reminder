@@ -86,6 +86,6 @@ class User extends Authenticatable
 
     public function routeNotificationForSlack($notification)
     {
-        return config('slack.default');
+        return env('SLACK_WEBHOOK_URL');
     }
 }
